@@ -1,0 +1,26 @@
+echo 'version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      
+echo Iniciando fase pre-build...
+build:
+  commands:
+echo Iniciando fase build...
+echo "Desplegando archivos en el servidor web..."
+aws s3 cp index.html s3://mi-bucket-temporal/
+aws ec2 describe-instances --filters "Name=tag:Name,Values=MiAppWeb" --query "Reservations[].Instances[].PublicIpAddress" --output text > ip.txt
+EC2_IP=$(cat ip.txt)
+aws ssm send-command --document-name "AWS-RunShellScript" --targets "Key=instanceids,Values=i-1234567890abcdef0" --parameters "commands=["aws s3 cp s3://mi-bucket-temporal/index.html /var/www/html/", "chmod 644 /var/www/html/index.html"]"
+post_build:
+  commands:
+echo Build completado el date
+
+artifacts:
+  files:
+    
+index.html' > buildspec.yml
