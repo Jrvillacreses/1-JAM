@@ -1,7 +1,0 @@
-version: 0.2
-
-phases:
-  build:
-    commands:
-      - echo "Desplegando a EC2..."
-      - scp -i MiClaveEC2.pem -o StrictHostKeyChecking=no index.html ec2-user@54.175.149.115:/var/www/html/index.html

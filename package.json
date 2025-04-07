@@ -1,0 +1,13 @@
+{
+    "name": "mi-proyecto-node",
+    "version": "1.0.0",
+    "description": "Mi proyecto Node.js para CI/CD",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
+  
